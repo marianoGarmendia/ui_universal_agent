@@ -35,32 +35,50 @@ function CustomComponent({
   );
   
   console.log("customComponents", customComponents);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!wrapperRef.current) return;
-    // ② Busca hijos que tengan Shadow DOM
-    const shadowHosts = Array.from(wrapperRef.current.children)
-      .filter((el): el is HTMLElement => !!(el as HTMLElement).shadowRoot);
+  
 
-    shadowHosts.forEach((host) => {
-      // ③ Fija display:grid al host
-      host.style.display = 'grid';
-      host.style.width   = '100%';       // opcional
-      // —o— si quieres inyectar reglas más complejas:
-      const css = `
-        :host { display: grid !important; width: 100% !important; }
-        /* cualquier otra regla */
-      `;
-      const styleTag = document.createElement('style');
-      styleTag.textContent = css;
-      host.shadowRoot!.appendChild(styleTag);
-    });
-  }, []);
+  const wrapperRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!wrapperRef.current) return
+
+    // Función que busca <link rel="stylesheet"> en todos los shadowRoots hijos
+    function patchCSSLinks() {
+      const hosts = Array.from(wrapperRef.current!.children)
+        .filter((el): el is HTMLElement => (el as HTMLElement).shadowRoot !== null)
+
+      hosts.forEach(host => {
+        const sr = host.shadowRoot!
+        // parchea todos los <link> que empiecen por http://railway…
+        sr.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"]').forEach(link => {
+          const href = link.getAttribute('href')
+          if (href?.startsWith('http://apirealstate-production.up.railway.app')) {
+            link.setAttribute('href', href.replace('http://', 'https://'))
+          }
+        })
+      })
+    }
+
+    // parche inicial
+    patchCSSLinks()
+
+    // y observa dinámicamente nuevas inserciones en shadowRoots
+    const observer = new MutationObserver(patchCSSLinks)
+    // observa cada shadowRoot
+    Array.from(wrapperRef.current.children)
+      .forEach((el) => {
+        const sr = (el as HTMLElement).shadowRoot
+        if (sr) observer.observe(sr, { childList: true, subtree: true })
+      })
+
+    return () => observer.disconnect()
+  }, [])
+  
   
   if (!customComponents?.length) return null;
   return (
     <Fragment key={message.id}>
-      {customComponents.map((customComponent) => (
+      {customComponents.map((customComponent:any) => (
         
         <LoadExternalComponent
         style={{ display: 'grid', width: '100%' }} 
