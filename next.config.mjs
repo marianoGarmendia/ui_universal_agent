@@ -1,5 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  async headers() {
+    return [
+      {
+        source: '/(.*)',        // para todas las rutas
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: 'upgrade-insecure-requests'
+          }
+        ]
+      }
+    ]
+  },
     async rewrites() {
       return [
         {
