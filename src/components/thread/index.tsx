@@ -8,6 +8,7 @@ import { useStreamContext } from "@/providers/Stream";
 import { useState, FormEvent } from "react";
 import { Button } from "../ui/button";
 import { Checkpoint, Message } from "@langchain/langgraph-sdk";
+import PropertiesCarousel from "../ui/PropertyCarousel";
 
 
 import { AssistantMessage, AssistantMessageLoading } from "./messages/ai";
@@ -118,6 +119,9 @@ export function Thread() {
   const isLargeScreen = useMediaQuery("(min-width: 1024px)");
   const firstMessageRef = useRef(0);
   const stream = useStreamContext();
+
+  console.log("stream ui: " , stream.values.ui);
+  
  
   const messages = stream.messages;
   
@@ -134,6 +138,7 @@ export function Thread() {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (firstMessageRef.current !== 0) return;
+      if(threadId) return;
 
       const newHumanMessage: Message = {
         id: `do-not-render-${uuidv4()}`,
@@ -160,10 +165,10 @@ export function Thread() {
       firstMessageRef.current = 1;
       setInput("");
       setShowinputField(true);
-    }, 1000); // Espera de 1 segundo
+    }, 10000); // Espera de 1 segundo
 
     return () => clearTimeout(timer); // Limpieza del temporizador al desmontar
-  }, [firstMessageRef ,stream]);
+  }, [firstMessageRef ,stream , threadId]);
 
   useEffect(() => {
     if (!stream.error) {
@@ -454,7 +459,7 @@ export function Thread() {
 
                 <ScrollToBottom className="animate-in fade-in-0 zoom-in-95 absolute bottom-full left-1/2 mb-4 -translate-x-1/2" />
 
-                {!showinputField  ? (
+                {!showinputField && !threadId ? (
                   <div className="top-0 flex flex-col items-center gap-4 bg-white">
                     <div className="flex flex-col items-center gap-3">
                       <div className="flex flex-col items-center">

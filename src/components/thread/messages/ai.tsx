@@ -1,4 +1,5 @@
 import { parsePartialJson } from "@langchain/core/output_parsers";
+import { useRef, useEffect } from "react";
 import { useStreamContext } from "@/providers/Stream";
 import { AIMessage, Checkpoint, Message , } from "@langchain/langgraph-sdk";
 import { getContentString } from "../utils";
@@ -22,35 +23,54 @@ function CustomComponent({
   message: Message;
   thread: ReturnType<typeof useStreamContext>;
 }) {
-  console.log("message", message);
+ 
   
   
   
   const { values } = useStreamContext();
   const customComponents = values.ui?.filter(
-    
-
-    (ui) =>{ 
-      console.log("ui metadata id", ui.metadata?.message_id);
-      console.log("message", message.id);
-    
-      
+    (ui:UIMessage) =>{ 
      return  ui.metadata?.message_id === message.id
     }
   );
   
   console.log("customComponents", customComponents);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!wrapperRef.current) return;
+    // ② Busca hijos que tengan Shadow DOM
+    const shadowHosts = Array.from(wrapperRef.current.children)
+      .filter((el): el is HTMLElement => !!(el as HTMLElement).shadowRoot);
+
+    shadowHosts.forEach((host) => {
+      // ③ Fija display:grid al host
+      host.style.display = 'grid';
+      host.style.width   = '100%';       // opcional
+      // —o— si quieres inyectar reglas más complejas:
+      const css = `
+        :host { display: grid !important; width: 100% !important; }
+        /* cualquier otra regla */
+      `;
+      const styleTag = document.createElement('style');
+      styleTag.textContent = css;
+      host.shadowRoot!.appendChild(styleTag);
+    });
+  }, []);
   
   if (!customComponents?.length) return null;
   return (
     <Fragment key={message.id}>
       {customComponents.map((customComponent) => (
+        
         <LoadExternalComponent
+        style={{ display: 'grid', width: '100%' }} 
           key={customComponent.id}
           stream={thread}
           message={customComponent }
           meta={{ ui: customComponent }}
+          
         />
+     
       ))}
     </Fragment>
   );
