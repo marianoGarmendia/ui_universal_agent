@@ -103,12 +103,12 @@ export function ThreadActionsView({
   const ignoreAllowed = interrupt.config.allow_ignore;
 
   return (
-    <div className="flex min-h-full w-full flex-col gap-9">
+    <div className="flex min-h-full w-full flex-col gap-2 w-[300px]">
       {/* Header */}
       <div className="flex w-full flex-wrap items-center justify-between gap-3">
         <div className="flex items-center justify-start gap-3">
           <p className="text-2xl tracking-tighter text-pretty">{threadTitle}</p>
-          {threadId && <ThreadIdCopyable threadId={threadId} />}
+          {/* {threadId && <ThreadIdCopyable threadId={threadId} />} */}
         </div>
         <div className="flex flex-row items-center justify-start gap-2">
           {/* {apiUrl && (
@@ -121,12 +121,12 @@ export function ThreadActionsView({
               Studio
             </Button>
           )} */}
-          <ButtonGroup
+          {/* <ButtonGroup
             handleShowState={() => handleShowSidePanel(true, false)}
             handleShowDescription={() => handleShowSidePanel(false, true)}
             showingState={showState}
             showingDescription={showDescription}
-          />
+          /> */}
         </div>
       </div>
 

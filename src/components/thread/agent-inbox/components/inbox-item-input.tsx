@@ -12,12 +12,13 @@ import { Separator } from "@/components/ui/separator";
 function ResetButton({ handleReset }: { handleReset: () => void }) {
   return (
     <Button
-      onClick={handleReset}
+      // onClick={}
       variant="ghost"
-      className="flex items-center justify-center gap-2 text-gray-500 hover:text-red-500"
+      className="flex items-center justify-center min-w-4 gap-2 text-gray-500 hover:text-red-500"
     >
-      <Undo2 className="h-4 w-4" />
-      <span>Reset</span>
+      {/* <Undo2 className="h-4 w-4" />
+      <span>Reset</span> */}
+    
     </Button>
   );
 }
@@ -123,7 +124,7 @@ function ResponseComponent({
         <ArgsRenderer args={interruptValue.action_request.args} />
       )}
 
-      <div className="flex w-full flex-col items-start gap-[6px]">
+      <div className="flex w-full flex-col items-start  gap-[6px]">
         <p className="min-w-fit text-sm font-medium">Response</p>
         <Textarea
           disabled={streaming}
@@ -171,7 +172,7 @@ function AcceptComponent({
         onClick={handleSubmit}
         className="w-full"
       >
-        Accept
+        Aceptar
       </Button>
     </div>
   );

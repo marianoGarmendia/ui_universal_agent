@@ -29,12 +29,9 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 import WhatsappAhare from "../icons/whatsapp";
 
-// import naturgy_logo from "../../../assets/naturgy_logo_text-removebg.png";
-// import naturgy_logo_chat from "../../../assets/naturgy.png";
-// import * as perfil_image from "../../../assets/agent_perfil.jpeg";
+import ui_logo from "../../../assets/ui_logo.png";
 
-import win_logo from "../../../assets/logo_mym.png";
-import carla_real_state from "../../../assets/carla_real_state.jpeg";
+import agente_perfil from "../../../assets/agent_perfil.jpeg";
 
 function StickyToBottomContent(props: {
   content: ReactNode;
@@ -231,7 +228,7 @@ export function Thread() {
       { messages: [...toolMessages, newHumanMessage] },
 
       {
-        config: { configurable: { user_id: 77, reference: reference } },
+        config: { configurable: { user_id: 7770, reference: reference } },
         streamMode: ["values"],
         optimisticValues: (prev) => ({
           ...prev,
@@ -368,11 +365,11 @@ export function Thread() {
                 /> */}
               <span className="text-xl font-semibold tracking-tight">
                 <Image
-                  src={win_logo}
-                  alt="Naturgy Logo"
-                  width={100}
-                  height={100}
-                  className="mx-2"
+                  src={ui_logo}
+                  alt="Universal_logo"
+                  width={200}
+                  height={300}
+                  className="mx-2 bg-[#005191]"
                 />
               </span>
               {/* </motion.button> */}
@@ -465,7 +462,7 @@ export function Thread() {
                       <div className="flex flex-col items-center">
                        
                         <Image
-                          src={carla_real_state}
+                          src={agente_perfil}
                           alt="Descripción de la imagen"
                           width={170}
                           height={170}
@@ -474,26 +471,26 @@ export function Thread() {
                       </div>
                       <div className="flex items-center gap-2 py-2 text-center">
                         <h1 className="text-2xl font-bold text-gray-800">
-                          Carla W.S
+                         UA
                         </h1>
                         <p className="text-xl text-gray-700">Agente IA</p>
                       </div>
 
-                      <div className="mx-4 mb-6 rounded-lg bg-[#fef7ef] p-6  text-center">
-                        <p className="text-md mb-2 text-center last:mb-0 font-bold">
-                          Especialista de Real State 
+                      <div className="mx-4 mb-6 rounded-lg bg-[#005191] p-6  text-center">
+                        <p className="text-md mb-2 text-white text-center last:mb-0 font-bold">
+                          Universal Assistance
                         </p>
-                        <p>para inmobiliaria MYM</p>
+                        
                       </div>
                       <p className="text-center">
-                        En un momento tu Agente Carla atenderá tu solicitud{" "}
+                        En un momento tu Agente UA atenderá tu solicitud{" "}
                       </p>
                       <div>
                         <LoaderCircle className="h-4 w-4 animate-spin" />
                       </div>
                     </div>
                     <p className="text-center text-sm text-gray-400">
-                      Powered by WinWinSaaS
+                      Powered by laCalle AI
                     </p>
                   </div>
                 ) : (
@@ -549,7 +546,7 @@ export function Thread() {
                 )}
                 {chatStarted && (
                   <p className="absolute bottom-1 text-center text-xs text-gray-400">
-                    Powered by WinWinSaaS
+                    Powered by laCalle AI
                   </p>
                 )}
               </div>

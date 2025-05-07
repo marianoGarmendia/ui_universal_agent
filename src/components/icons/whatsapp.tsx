@@ -1,9 +1,9 @@
 import {WhatsappIcon } from "next-share";
 
 const WhatsappAhare = () => {
-  const mensaje = encodeURIComponent(`Encuentra la propiedad de tus sueños`);
+  const mensaje = encodeURIComponent(`Visitá el sitio web de Universal Assistance`);
   const enlaceGrupo = encodeURIComponent(
-    "https://contracttic-w2wtb-portafolio.my.canva.site/winwinsaas-landing",
+    "https://www.universal-assistance.com/cl-la/home",
   );
   const url = `https://wa.me/?text=${mensaje}%20${enlaceGrupo}`;
 
