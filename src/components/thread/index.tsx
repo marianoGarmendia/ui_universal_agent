@@ -460,6 +460,13 @@ export function Thread() {
                   <div className="top-0 flex flex-col items-center gap-4 bg-white">
                     <div className="flex flex-col items-center gap-3">
                       <div className="flex flex-col items-center">
+                      <Image
+                          src={ui_logo}
+                          alt="logo_ui"
+                          width={200}
+                          height={200}
+                          className="bg-[#005191]"
+                        />
                        
                         <Image
                           src={agente_perfil}
